@@ -10,7 +10,8 @@ use core::fmt::Write;
 static HELLO: &[u8] = b"hello, world!";
 
 #[panic_handler]
-fn panic(_: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
     loop {}
 }
 
