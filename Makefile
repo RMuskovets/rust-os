@@ -9,13 +9,15 @@ LINKFILE:= src/link.ld
 ISODIR	:= isofiles
 ASMSRC	:= $(wildcard src/arch/$(ARCH)/*.asm)
 ASMOBJ	:= $(patsubst src/arch/$(ARCH)/%.asm, $(BUILDDIR)/%.o, $(ASMSRC))
+RUSTLIB	:= target/$(BUILDDIR)/librust_os.a # yes, it does that )=
 
 .PHONY: all run clean iso dirs_setup
 
 all: run
 
 clean:
-	@rm -r $(BUILDDIR)
+	@rm -r $(BUILDDIR) || true
+	# do not fail if the $(BUILDDIR) not found
 
 dirs_setup: clean
 	@mkdir -p $(BUILDDIR)
@@ -28,8 +30,11 @@ $(ISO): dirs_setup $(KERNEL)
 	cp $(KERNEL) $(BUILDDIR)/$(ISODIR)/boot/kernel.bin
 	grub-mkrescue -o $(ISO) $(BUILDDIR)/$(ISODIR)
 
-$(KERNEL): dirs_setup $(ASMOBJ) $(LINKFILE)
-	ld -n -o $(KERNEL) -T $(LINKFILE) $(ASMOBJ)
+$(KERNEL): dirs_setup $(RUSTLIB) $(ASMOBJ) $(LINKFILE)
+	ld -n -o $(KERNEL) -T $(LINKFILE) $(ASMOBJ) $(RUSTLIB)
+
+$(RUSTLIB):
+	cargo xbuild --target=src/arch/$(ARCH)/target.json
 
 $(BUILDDIR)/%.o: src/arch/$(ARCH)/%.asm
 	@mkdir -p $(shell dirname $@)
