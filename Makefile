@@ -11,7 +11,7 @@ ASMSRC	:= $(wildcard src/arch/$(ARCH)/*.asm)
 ASMOBJ	:= $(patsubst src/arch/$(ARCH)/%.asm, $(BUILDDIR)/%.o, $(ASMSRC))
 RUSTLIB	:= target/$(BUILDDIR)/librust_os.a # yes, it does that )=
 
-.PHONY: all run clean iso dirs_setup
+.PHONY: all run clean iso dirs_setup cloc
 
 all: run
 
@@ -39,3 +39,6 @@ $(RUSTLIB):
 $(BUILDDIR)/%.o: src/arch/$(ARCH)/%.asm
 	@mkdir -p $(shell dirname $@)
 	nasm -felf64 $< -o $@
+
+cloc:
+	@cloc . --exclude-dir=target
