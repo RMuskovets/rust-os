@@ -1,6 +1,9 @@
 #[allow(dead_code)]
 
 use core::fmt;
+use volatile::Volatile;
+use lazy_static::lazy_static;
+use spin::Mutex;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
@@ -76,7 +79,7 @@ const HEIGHT: usize = 25;
 
 #[repr(transparent)]
 pub struct Buffer {
-    chars: [[Char; WIDTH]; HEIGHT]
+    chars: [[Volatile<Char>; WIDTH]; HEIGHT]
 }
 
 pub struct Writer {
@@ -96,10 +99,10 @@ impl Writer {
                 let row = HEIGHT - 1;
                 let col = self.col;
                 let color = self.color;
-                self.buf.chars[row][col] = Char {
+                self.buf.chars[row][col].write(Char {
                     ascii: b,
                     color
-                };
+                });
             }
         }
     }
@@ -107,8 +110,8 @@ impl Writer {
     pub fn nl(&mut self) {
         for row in 1..HEIGHT {
             for col in 1..WIDTH {
-                let c = self.buf.chars[row][col];
-                self.buf.chars[row-1][col] = c;
+                let c = self.buf.chars[row][col].read();
+                self.buf.chars[row-1][col].write(c);
             }
         }
         self.clear_row(HEIGHT - 1);
@@ -121,7 +124,7 @@ impl Writer {
             color: self.color
         };
         for col in 0..WIDTH {
-            self.buf.chars[row][col] = blank;
+            self.buf.chars[row][col].write(blank);
         }
     }
 
@@ -140,4 +143,12 @@ impl fmt::Write for Writer {
         self.puts(s);
         Ok(())
     }
+}
+
+lazy_static! {
+    pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
+        col: 0,
+        color: ColorCode::new(Color::Yellow, Color::Black),
+        buf: unsafe { &mut *(0xb8000 as *mut Buffer) }
+    });
 }

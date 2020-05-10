@@ -26,6 +26,10 @@ dirs_setup: clean
 run: $(ISO)
 	qemu-system-$(ARCH) -cdrom $(ISO)
 
+iso: $(ISO)
+	@cp $(ISO) target/
+	@echo Done!
+
 $(ISO): dirs_setup $(KERNEL)
 	cp $(KERNEL) $(BUILDDIR)/$(ISODIR)/boot/kernel.bin
 	grub-mkrescue -o $(ISO) $(BUILDDIR)/$(ISODIR)
