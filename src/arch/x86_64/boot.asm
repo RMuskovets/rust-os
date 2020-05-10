@@ -12,6 +12,7 @@ multiboot:
 multiboot_end:
 
 global start
+extern longmode_start
 section .text
 bits 32
 start:
@@ -20,8 +21,11 @@ start:
     call check_long_mode
     call do_paging
     call enable_paging
-    mov dword [0xb8000], 0x2f4b2f4f ; OK with light-gray fg on green bg
-    jmp hang
+    lgdt [gdt64.ptr]
+    jmp gdt64.code:longmode_start
+    ; mov dword [0xb8000], 0x2f4b2f4f ; OK with light-gray fg on green bg
+    mov eax, "2"
+    jmp error
 
 check_cpuid:
     pushfd
@@ -109,3 +113,12 @@ p2_table:
 stack_bottom:
     resb 64*1024 ; 64 kb of stack
 stack_top:
+
+section .rodata
+gdt64:
+    dq 0 ; zero entry
+.code: equ $ - gdt64
+    dq (1 << 43) | (1 << 44) | (1 << 47) | (1 << 53)
+.ptr:
+    dw $ - gdt64 - 1
+    dq gdt64
