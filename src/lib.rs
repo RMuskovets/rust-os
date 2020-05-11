@@ -33,7 +33,7 @@ pub extern "C" fn rmain(mbaddr: usize) { // short for "rust main"
 
     vga::WRITER.lock().clear();
 
-    hardware::initialize();
+    hardware::initialize(multiboot_info);
 
     println!("[ INIT ] Everything initialized successfully");
 
@@ -43,6 +43,8 @@ pub extern "C" fn rmain(mbaddr: usize) { // short for "rust main"
         multiboot_info.vbe.framebuffer.bpp);
     println!("[ INFO ] Framebuffer located at {:#016x}",
         multiboot_info.vbe.framebuffer.addr);
+
+
 
     #[cfg(test)]
     tmain();

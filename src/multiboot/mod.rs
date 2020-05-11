@@ -4,20 +4,12 @@ use core::marker::PhantomData;
 use crate::panic;
 
 #[repr(C)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum KernelType {
-    A_OUT {
-        tabsize: u32,
-        strsize: u32,
-        addr: u32,
-        reserved: u32
-    },
-    ELF {
-        num: u32,
-        size: u32,
-        addr: u32,
-        shndx: u32
-    }
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+pub struct KernelType {
+    pub field1: u32,
+    pub field2: u32,
+    pub field3: u32,
+    pub field4: u32
 }
 
 #[repr(C)]
@@ -75,7 +67,10 @@ pub struct Module {
 #[repr(C)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Page {
-
+    pub size: u32,
+    pub addr: u64,
+    pub len : u64,
+    pub typ : u32
 }
 
 #[repr(C)]
@@ -101,12 +96,19 @@ pub struct Multiboot {
     pub vbe: VBE
 }
 
+#[repr(C)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ArrayIter<T> {
+    pub array: Array<T>,
+    pub current_index: u32
+}
+
 pub unsafe fn load(from: usize) -> Multiboot {
     *(from as *const Multiboot)
 }
 
 impl<T> Index<u32> for Array<T> where
-    T: Copy {
+    T: Sized + Copy {
     type Output = T;
 
     fn index(&self, idx: u32) -> &T {
@@ -117,6 +119,68 @@ impl<T> Index<u32> for Array<T> where
         unsafe {
             let addr = self.addr + idx * size_of::<T>() as u32;
             &*((addr) as *const T)
+        }
+    }
+}
+
+impl<T> Array<T> where T: Sized + Copy {
+
+    pub fn get(&self, idx: u32) -> &T {
+        &self[idx]
+    }
+
+    pub fn len(&self) -> u32 {
+        self.count
+    }
+
+    pub fn iter(&self) -> ArrayIter<T> {
+        ArrayIter {
+            array: *self,
+            current_index: 0
+        }
+    }
+}
+
+// impl<T> Iterator for Array<T> where T: Sized + Copy {
+//     type Item = T;
+//
+//     fn next(&self) -> Option<T> {
+//
+//     }
+// }
+
+impl<T> Iterator for ArrayIter<T> where T: Sized + Copy {
+    type Item = T;
+
+    fn next(&mut self) -> Option<T> {
+        if self.current_index >= self.array.len() {
+            None
+        } else {
+            let val = self.array[self.current_index];
+            self.current_index += 1;
+            Some(val)
+        }
+    }
+}
+
+#[derive(Copy, Clone, Eq, PartialEq, Debug)]
+pub enum PageType {
+    AVAILABLE,
+    ACPI_AVAILABLE,
+    RESERVED_HIBERNATE,
+    DEFECTIVE,
+    RESERVED
+}
+
+impl Page {
+
+    pub fn typ(&self) -> PageType {
+        match self.typ {
+            1 => PageType::AVAILABLE,
+            3 => PageType::ACPI_AVAILABLE,
+            4 => PageType::RESERVED_HIBERNATE,
+            5 => PageType::DEFECTIVE,
+            _ => PageType::RESERVED
         }
     }
 }
