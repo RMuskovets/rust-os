@@ -7,8 +7,19 @@ CHECKSUM equ -(MAGIC + FLAGS)   ; checksum of above, to prove we are multiboot
 section .header
 multiboot:
     dd MAGIC
-    dd FLAGS
+%ifdef IS_VIDEOMODE
+    dd 1 << 0 | 1 << 1 | 1 << 2 ; align loaded modules on pages AND provide memmap AND set a video mode
+%else
+    dd 1 << 0 | 1 << 1 ; align loaded modules on pages AND provide memmap
+%endif
     dd CHECKSUM
+%ifdef IS_VIDEOMODE
+    times 5 dd 0
+    dd    0 ; no, it is a video mode, not a text mode
+    dd 1024 ; width = 1024
+    dd  768 ; height = 768
+    dd   32 ; bpp = 32
+%endif
 multiboot_end:
 
 global start
@@ -17,11 +28,14 @@ section .text
 bits 32
 start:
     mov esp, stack_top
+    push ebx
     call check_cpuid
     call check_long_mode
     call do_paging
     call enable_paging
     lgdt [gdt64.ptr]
+    pop ebx
+    mov edi, ebx
     jmp gdt64.code:longmode_start
     ; mov dword [0xb8000], 0x2f4b2f4f ; OK with light-gray fg on green bg
     mov eax, "2"

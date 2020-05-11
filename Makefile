@@ -16,8 +16,7 @@ RUSTLIB	:= target/$(BUILDDIR)/librust_os.a # yes, it does that )=
 all: run
 
 clean:
-	@rm -r $(BUILDDIR) || true
-	# do not fail if the $(BUILDDIR) not found
+	@rm -r target/ || true
 
 dirs_setup: clean
 	@mkdir -p $(BUILDDIR)
@@ -28,6 +27,14 @@ run: $(ISO)
 
 iso: $(ISO)
 	@cp $(ISO) target/
+	@echo Done!
+
+kernel: $(KERNEL)
+	@cp $(KERNEL) target/
+	@echo Done!
+
+rust: dirs_setup $(RUSTLIB)
+	@cp $(RUSTLIB) target/
 	@echo Done!
 
 $(ISO): dirs_setup $(KERNEL)
@@ -42,7 +49,7 @@ $(RUSTLIB):
 
 $(BUILDDIR)/%.o: src/arch/$(ARCH)/%.asm
 	@mkdir -p $(shell dirname $@)
-	nasm -felf64 $< -o $@
+	nasm -felf64 -DVIDEO $< -o $@
 
 cloc:
 	@cloc . --exclude-dir=target

@@ -4,30 +4,48 @@
 #![feature(custom_test_frameworks)]
 #![test_runner(crate::test_runner)]
 #![reexport_test_harness_main = "tmain"]
+#![feature(abi_x86_interrupt)]
 
 mod vga;
+mod hardware;
+mod multiboot;
 
 use core::panic::PanicInfo;
-use core::fmt::Write;
 
-static HELLO: &[u8] = b"hello, world!";
+fn hlt_loop() -> ! {
+    loop {
+        x86_64::instructions::hlt();
+    }
+}
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    hlt_loop();
 }
 
 #[no_mangle]
-pub extern "C" fn rmain() { // short for "rust main"
+pub extern "C" fn rmain(mbaddr: usize) { // short for "rust main"
+
+    // let multiboot_info = unsafe { multiboot2::load(multiboot) };
+
+    let multiboot_info = unsafe { multiboot::load(mbaddr) };
+
     vga::WRITER.lock().clear();
 
+    hardware::initialize();
+
     println!("hello{}world{}", ", ", "!");
+
+    println!("VESA mode {} = {}x{} {}bpp", multiboot_info.vbemode, multiboot_info.framebuffer_width, multiboot_info.framebuffer_height, multiboot_info.framebuffer_bpp);
+    println!("Framebuffer located at {:#016x}", multiboot_info.framebuffer_addr);
 
     #[cfg(test)]
     tmain();
 
-    loop {}
+    println!("It didn't crash!");
+
+    hlt_loop();
 }
 
 #[cfg(test)]
