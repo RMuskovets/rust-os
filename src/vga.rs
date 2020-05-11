@@ -69,6 +69,7 @@ impl ColorCode {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[repr(C)]
 pub struct Char {
     ascii: u8,
     color: ColorCode
@@ -89,6 +90,13 @@ pub struct Writer {
 }
 
 impl Writer {
+
+    pub fn clear(&mut self) {
+        for row in 1..HEIGHT {
+            self.clear_row(row);
+        }
+    }
+
     pub fn putc(&mut self, b: u8) {
         match b {
             b'\n' => self.nl(),
@@ -103,13 +111,14 @@ impl Writer {
                     ascii: b,
                     color
                 });
+                self.col += 1;
             }
         }
     }
 
     pub fn nl(&mut self) {
         for row in 1..HEIGHT {
-            for col in 1..WIDTH {
+            for col in 0..WIDTH {
                 let c = self.buf.chars[row][col].read();
                 self.buf.chars[row-1][col].write(c);
             }
