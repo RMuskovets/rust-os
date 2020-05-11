@@ -53,5 +53,5 @@ pub fn init() {
         set_cs(GDT.1.code);
         load_tss(GDT.1.tss);
     }
-    println!("[KERNEL] GDT loaded successfully");
+    println!("[ INIT ] GDT loaded successfully");
 }

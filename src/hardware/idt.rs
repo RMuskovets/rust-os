@@ -28,19 +28,18 @@ lazy_static! {
 
 pub fn init() {
     IDT.load();
-    println!("[KERNEL] IDT loaded successfully");
+    println!("[ INIT ] IDT loaded successfully");
 }
 
 extern "x86-interrupt" fn on_breakpoint(frame: &mut InterruptStackFrame) {
-    println!("[DEBUG] Breakpoint: {:#?}", frame);
+    println!("[ INFO ] Breakpoint: {:#?}", frame);
 }
 
 extern "x86-interrupt" fn on_double_fault(frame: &mut InterruptStackFrame, errorcode: u64) -> ! {
-    panic!("[ERROR] Double Fault (code {}): {:#?}", errorcode, frame);
+    panic!("[ ERR  ] Double Fault (code {}): {:#?}", errorcode, frame);
 }
 
 extern "x86-interrupt" fn on_timer_tick(frame: &mut InterruptStackFrame) {
-    print!(".");
 
     unsafe {
         interrupts::PICS.lock()

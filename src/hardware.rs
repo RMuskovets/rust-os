@@ -10,5 +10,5 @@ pub fn initialize() {
     idt::init();
     gdt::init();
     interrupts::init();
-    println!("[KERNEL] Hardware initialized successfully");
+    println!("[ INIT ] Hardware initialized successfully");
 }

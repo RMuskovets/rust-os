@@ -20,7 +20,7 @@ fn hlt_loop() -> ! {
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    println!("{}", info);
+    println!("[ ERR  ] PANIC: {}", info);
     hlt_loop();
 }
 
@@ -35,22 +35,24 @@ pub extern "C" fn rmain(mbaddr: usize) { // short for "rust main"
 
     hardware::initialize();
 
-    println!("hello{}world{}", ", ", "!");
+    println!("[ INIT ] Everything initialized successfully");
 
-    println!("VESA mode {} = {}x{} {}bpp", multiboot_info.vbemode, multiboot_info.framebuffer_width, multiboot_info.framebuffer_height, multiboot_info.framebuffer_bpp);
-    println!("Framebuffer located at {:#016x}", multiboot_info.framebuffer_addr);
+    println!("[ INFO ] VESA mode {:#02x} = {}x{} {}bpp",
+        multiboot_info.vbe.mode,
+        multiboot_info.vbe.framebuffer.width, multiboot_info.vbe.framebuffer.height,
+        multiboot_info.vbe.framebuffer.bpp);
+    println!("[ INFO ] Framebuffer located at {:#016x}",
+        multiboot_info.vbe.framebuffer.addr);
 
     #[cfg(test)]
     tmain();
-
-    println!("It didn't crash!");
 
     hlt_loop();
 }
 
 #[cfg(test)]
 fn test_runner(tests: &[&dyn Fn()]) {
-    println!("Running {} tests", tests.len());
+    println!("[ TEST ] Running {} tests", tests.len());
     for test in tests {
         test();
     }
