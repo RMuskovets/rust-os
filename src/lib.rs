@@ -21,8 +21,11 @@ fn panic(info: &PanicInfo) -> ! {
 #[no_mangle]
 pub extern "C" fn rmain() { // short for "rust main"
 
+    vga::WRITER.lock().puts("hello, world!\n");
+
     println!("hello{}world{}", ", ", "!");
 
+    #[cfg(test)]
     tmain();
 
     loop {}
