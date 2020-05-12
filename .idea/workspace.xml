@@ -1,18 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="CargoProjects">
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62dd3288-bd98-420f-90de-25fbd6c7091b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Build_ISO.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Build_ISO.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Build_Rust__a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Build_Rust__a.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Build__bin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Build__bin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Clean_working_directory.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Clean_working_directory.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Run_in_QEMU.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Run_in_QEMU.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Set_up_directories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Set_up_directories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hardware.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/hardware.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hardware/gdt.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/hardware/gdt.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hardware/idt.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/hardware/idt.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hardware/interrupts.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/hardware/interrupts.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hardware/memmap.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/hardware/memmap.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/multiboot.rs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -27,6 +60,9 @@
   <component name="MacroExpansionManager">
     <option name="directoryName" value="ofc4lwjr" />
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
   <component name="ProjectId" id="1blhO7QqKEh02B93zZItpduNTFC" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -37,7 +73,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Makefile" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
-    <property name="settings.editor.selected.configurable" value="language.rust" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -46,11 +82,11 @@
   </component>
   <component name="RunManager" selected="Makefile.Run in QEMU">
     <list>
-      <item itemvalue="Makefile.Run in QEMU" />
-      <item itemvalue="Makefile.Build ISO" />
       <item itemvalue="Makefile.Build .bin" />
+      <item itemvalue="Makefile.Build ISO" />
       <item itemvalue="Makefile.Build Rust .a" />
       <item itemvalue="Makefile.Clean working directory" />
+      <item itemvalue="Makefile.Run in QEMU" />
       <item itemvalue="Makefile.Set up directories" />
     </list>
   </component>
@@ -71,35 +107,60 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="451" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589212954670">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state x="217" y="57" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589272861462">
+      <screen x="35" y="27" width="1331" height="741" />
     </state>
+    <state x="217" y="57" key="#com.intellij.execution.impl.EditConfigurationsDialog/35.27.1331.741@35.27.1331.741" timestamp="1589272861462" />
     <state x="451" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1589212954670" />
+    <state x="654" y="186" width="200" height="426" key="EnvironmentVariablesDialog" timestamp="1589271529654">
+      <screen x="35" y="27" width="1331" height="741" />
+    </state>
+    <state x="654" y="186" width="200" height="426" key="EnvironmentVariablesDialog/35.27.1331.741@35.27.1331.741" timestamp="1589271529654" />
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1589212946834">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1589212946834" />
-    <state width="1807" height="278" key="GridCell.Tab.0.bottom" timestamp="1589219916467">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state width="1289" height="179" key="GridCell.Tab.0.bottom" timestamp="1589274846336">
+      <screen x="35" y="27" width="1331" height="741" />
     </state>
+    <state width="1289" height="179" key="GridCell.Tab.0.bottom/35.27.1331.741@35.27.1331.741" timestamp="1589274846336" />
     <state width="1807" height="278" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1589219916467" />
-    <state width="1807" height="278" key="GridCell.Tab.0.center" timestamp="1589219916466">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state width="1289" height="179" key="GridCell.Tab.0.center" timestamp="1589274846335">
+      <screen x="35" y="27" width="1331" height="741" />
     </state>
+    <state width="1289" height="179" key="GridCell.Tab.0.center/35.27.1331.741@35.27.1331.741" timestamp="1589274846335" />
     <state width="1807" height="278" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1589219916466" />
-    <state width="1807" height="278" key="GridCell.Tab.0.left" timestamp="1589219916466">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state width="1289" height="179" key="GridCell.Tab.0.left" timestamp="1589274846334">
+      <screen x="35" y="27" width="1331" height="741" />
     </state>
+    <state width="1289" height="179" key="GridCell.Tab.0.left/35.27.1331.741@35.27.1331.741" timestamp="1589274846334" />
     <state width="1807" height="278" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1589219916466" />
-    <state width="1807" height="278" key="GridCell.Tab.0.right" timestamp="1589219916467">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state width="1289" height="179" key="GridCell.Tab.0.right" timestamp="1589274846335">
+      <screen x="35" y="27" width="1331" height="741" />
     </state>
+    <state width="1289" height="179" key="GridCell.Tab.0.right/35.27.1331.741@35.27.1331.741" timestamp="1589274846335" />
     <state width="1807" height="278" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1589219916467" />
-    <state x="482" y="187" key="SettingsEditor" timestamp="1589212655310">
-      <screen x="67" y="27" width="1853" height="1053" />
+    <state x="333" y="38" key="SettingsEditor" timestamp="1589271335179">
+      <screen x="35" y="27" width="1331" height="741" />
     </state>
+    <state x="333" y="38" key="SettingsEditor/35.27.1331.741@35.27.1331.741" timestamp="1589271335179" />
     <state x="482" y="187" key="SettingsEditor/67.27.1853.1053@67.27.1853.1053" timestamp="1589212655310" />
+    <state x="364" y="175" key="run.anything.popup" timestamp="1589272428044">
+      <screen x="35" y="27" width="1331" height="741" />
+    </state>
+    <state x="364" y="175" key="run.anything.popup/35.27.1331.741@35.27.1331.741" timestamp="1589272428044" />
     <state x="656" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1589218524626">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

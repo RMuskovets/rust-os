@@ -20,7 +20,7 @@ fn hlt_loop() -> ! {
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    println!("[ ERR  ] PANIC: {}", info);
+    println!("[PANIC ] PANIC: {}", info);
     hlt_loop();
 }
 
@@ -33,9 +33,9 @@ pub extern "C" fn rmain(mbaddr: usize) { // short for "rust main"
 
     vga::WRITER.lock().clear();
 
-    hardware::initialize(multiboot_info);
+    hardware::initialize(mbaddr);
 
-    println!("[ INIT ] Everything initialized successfully");
+    println!("[  OK  ] Everything initialized successfully");
 
     println!("[ INFO ] VESA mode {:#02x} = {}x{} {}bpp",
         multiboot_info.vbe.mode,

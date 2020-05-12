@@ -29,5 +29,5 @@ pub fn init() {
         PICS.lock().initialize();
     }
     x86_64::instructions::interrupts::enable();
-    println!("[ INIT ] PICs initialized successfully");
+    println!("[  OK  ] PICs initialized successfully");
 }

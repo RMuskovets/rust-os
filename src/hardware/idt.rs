@@ -28,7 +28,7 @@ lazy_static! {
 
 pub fn init() {
     IDT.load();
-    println!("[ INIT ] IDT loaded successfully");
+    println!("[  OK  ] IDT loaded successfully");
 }
 
 extern "x86-interrupt" fn on_breakpoint(frame: &mut InterruptStackFrame) {
@@ -36,7 +36,7 @@ extern "x86-interrupt" fn on_breakpoint(frame: &mut InterruptStackFrame) {
 }
 
 extern "x86-interrupt" fn on_double_fault(frame: &mut InterruptStackFrame, errorcode: u64) -> ! {
-    panic!("[ ERR  ] Double Fault (code {}): {:#?}", errorcode, frame);
+    panic!("Double Fault (code {}): {:#?}", errorcode, frame);
 }
 
 extern "x86-interrupt" fn on_timer_tick(frame: &mut InterruptStackFrame) {

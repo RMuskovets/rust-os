@@ -28,13 +28,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "multiboot2"
-version = "0.8.2"
+name = "multiboot"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24835c1bfe38142c78aa2d00769b0d76239c4b583d92f817e6e0a4f3631f40d6"
-dependencies = [
- "bitflags",
-]
+checksum = "745e351d4f128ea9e266fe2dd04a1bd7349c60441d45ec8677520bae08e25d43"
 
 [[package]]
 name = "pc-keyboard"
@@ -56,7 +53,7 @@ name = "rust-os"
 version = "0.1.0"
 dependencies = [
  "lazy_static",
- "multiboot2",
+ "multiboot",
  "pc-keyboard",
  "pic8259_simple",
  "spin",
